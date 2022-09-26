@@ -1,13 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   styledComponents: true,
-};
-
-module.exports = {
-  env: {
-    REACT_APP_BE_BASEURL: "http://localhost:3001",
+  images: {
+    domains: ["www.codingem.com", "insights.dice.com", "www.orientat.ro"],
   },
 };
 

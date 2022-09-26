@@ -1,33 +1,37 @@
-import Image, { StaticImageData } from "next/image";
+import Calendar from "common/assets/icons/calendar.svg";
+import MapPin from "common/assets/icons/map-pin.svg";
+import Image from "next/image";
+import Link from "next/link";
 import { FC } from "react";
 import styled from "styled-components";
-import Calendar from "../../assets/icons/calendar.svg";
-import MapPin from "../../assets/icons/map-pin.svg";
 
 interface IEventCard {
   title: string;
   date: string;
-  address: string;
-  image: StaticImageData;
+  location: string;
+  image: string;
+  id: number;
 }
 
 const Card: FC<IEventCard> = ({ ...props }) => {
   return (
     <Div>
-      <div>
+      <div className="d-flex">
         <Image src={props.image} width={300} height={200} />
       </div>
       <div className="event__card__container">
         <div className="event__card-title">{props.title}</div>
         <div className="event__card-details">
-          <Image src={Calendar} />
+          <Image src={Calendar} width={20} height={20} />
           <p>{props.date}</p>
         </div>
         <div className="event__card-details">
-          <Image src={MapPin} />
-          {props.address}
+          <Image src={MapPin} width={20} height={20} />
+          {props.location}
         </div>
-        <button className="btn">Explore event</button>
+        <Link href={`/event/${props.id}`}>
+          <button className="btn">Explore event</button>
+        </Link>
       </div>
     </Div>
   );
@@ -47,6 +51,12 @@ const Div = styled.div`
   align-items: center;
   column-gap: 2rem;
 
+  img {
+    border-bottom-left-radius: ${({ theme }) =>
+      theme.border.borderRadius.regular};
+    border-top-left-radius: ${({ theme }) => theme.border.borderRadius.regular};
+  }
+
   .event__card__container {
     width: min(100%, 350px);
     display: flex;
@@ -60,7 +70,6 @@ const Div = styled.div`
     }
 
     .event__card-details {
-      font-weight: ${({ theme }) => theme.fonts.fontWeight.bold};
       font-size: ${({ theme }) => theme.fonts.fontSize.big};
       gap: 0.375rem;
       display: flex;

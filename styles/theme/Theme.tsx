@@ -8,6 +8,12 @@ interface IProps {
 
 const Theme: FC<IProps> = ({ children }) => {
   const theme = {
+    size: {
+      header: {
+        height: "80px",
+      },
+    },
+
     border: {
       borderRadius: {
         regular: "0.5rem",
@@ -15,6 +21,7 @@ const Theme: FC<IProps> = ({ children }) => {
         circle: "50%",
       },
     },
+
     colors: {
       background: "#F3F3F3",
       cardBackground: "#FFFFFF",
@@ -28,7 +35,7 @@ const Theme: FC<IProps> = ({ children }) => {
 
     fonts: {
       fontSize: {
-        title: "1.25rem",
+        title: "1.5rem",
         big: "1rem",
         regular: "0.75rem",
         small: "0.5rem",

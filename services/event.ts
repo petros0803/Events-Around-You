@@ -1,9 +1,10 @@
 import axios, { AxiosRequestConfig } from "axios";
+import config from "config";
 import useSWR from "swr";
 import { ISWRHookResponse } from "../common/helpers/api.types";
 
 export const httpEvents = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: config.BE_BASE_URL,
   responseType: "json",
 });
 
@@ -21,6 +22,7 @@ httpEvents.interceptors.request.use(authMiddleware);
 
 export const eventsApiPaths = {
   all: "/events",
+  getById: "/events/",
 };
 
 export const getAllEventsApi = async (path: string): Promise<any> => {
@@ -37,6 +39,24 @@ export const useAllEvents = (config?: any): ISWRHookResponse<any> => {
   return {
     data,
     error,
+    isLoading: !data && !error,
+  };
+};
+
+export const useGetEventById = (
+  index: string | string[],
+  config?: any
+): ISWRHookResponse<any> => {
+  const { data, error } = useSWR(
+    `${eventsApiPaths.getById}${index}`,
+    getAllEventsApi,
+    { ...config }
+  );
+
+  return {
+    data,
+    error,
+
     isLoading: !data && !error,
   };
 };
